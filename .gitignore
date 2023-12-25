@@ -2,6 +2,7 @@ date-fns
 uuid
 lodash
 express
+oracledb
 
 .vscode
 

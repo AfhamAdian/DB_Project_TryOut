@@ -1,9 +1,10 @@
 {
   "dependencies": {
     "date-fns": "^3.0.6",
+    "express": "^4.18.2",
     "lodash": "^4.17.21",
-    "uuid": "^9.0.1",
-    "express": "^4.18.2"
+    "oracledb": "^6.3.0",
+    "uuid": "^9.0.1"
   },
   "name": "project_try_1",
   "version": "1.0.0",
@@ -12,7 +13,8 @@
     "nodemon": "^3.0.2"
   },
   "scripts": {
-    "start": "node test.js",
+    "start": "node appWithDb.js",
+    "dev" : "node appWithDb.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

@@ -1,3 +1,3 @@
-app.get('/about', (req, res) => {
-//     res.sendFile( '.\views\about.html',{root : __dirname})
-// });
+setTimeout (() => {
+//     query(dbSocket, 'SELECT * FROM departments');
+// },500);

@@ -1,3 +1,3 @@
-// server.listen( PORT, () => {
-// //     console.log('server is listening to port 300');
-// // });
+app.get('/about', (req, res) => {
+//     res.sendFile( '.\views\about.html',{root : __dirname})
+// });

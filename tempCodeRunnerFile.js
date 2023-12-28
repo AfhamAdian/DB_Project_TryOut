@@ -1,3 +1,2 @@
-setTimeout (() => {
-//     query(dbSocket, 'SELECT * FROM departments');
-// },500);
+
+app.use('/emp',employeeRouter);

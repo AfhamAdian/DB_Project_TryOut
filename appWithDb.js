@@ -9,48 +9,7 @@ app.use(express.json());
 app.listen(3000);
 
 
-// conecing oracle db 
-// var con;
-// const dbConnect = async () => {
-//     try{
-//         con = await oracledb.getConnection({
-//             user        : "hr",
-//             password     : "hr",
-//             connectionString : "localhost/orcl"
-//         });
-//         console.log("Database Succesfully connected");
-//         // const dbData = await con.execute( 'SELECT * FROM departments' );
-//         // console.log( dbData.rows );
-//     }
-//     catch(err){
-//         con = undefined;
-//         console.log( err );
-//     }
-//     return con;
-// }
-// // connectinf db
-// const dbScocket = dbConnect();
-
-// const query = async ( cont,queryStatement ) => {
-//     try{
-//         if( cont == undefined ){
-//             console.log("dbSocket is empty\nCannot perform Query");
-//             return;
-//         }
-//         const dbData = await cont.execute( 'SELECT * FROM departments' );
-//         console.log( dbData.rows );
-//     }
-//     catch(err){
-//         console.log( err );
-//     }
-// }
-// // passing query
-// query(dbScocket,'SELECT * FROM departments');
-
-
-
-
-
+// Loading Oracle database
 const dbConnect = async () => {
     let con;
     try {
@@ -89,13 +48,33 @@ const query = async (cont, queryStatement) => {
     }
 }
 
+
+// Using Router
+const userRouter = express.Router();
+app.use('/user',userRouter);
+
+userRouter
+    .route('/')
+    .get(getUser)
+    .post(postUser)
+    .patch(patchUser)
+    .delete(deleteUser)
+
+userRouter
+    .route('/:id')
+    .get(getUserById)
+    .post(postUser)
+    .patch(patchUser)
+    .delete(deleteUser)
+
+
 // Passing a query
 // setTimeout (() => {
 //     query(dbSocket, 'SELECT * FROM departments');
 // },500);
 
 
-
+//// Api part begining
 
 
 
@@ -118,24 +97,89 @@ app.get('/abour-us',(req, res) => {
 app.get('/us', (req, res) => {
     res.redirect('/about');
 });
+// 404 page 
 
+app.use((req, res) => {
+    res.status(404).sendFile('./views/404.html', { root: __dirname });
+});
 
 // apis
-let user = {};
+let user = [
+    {
+        'id': 1,
+        'name': 'adian'
+    },
+    {
+        'id': 2,
+        'name': 'ahnaf'
+    },
+    {
+        'id': 3,
+        'name': 'ayan'
+    }
+];
 
-app.get('/user', (req, res) =>{
+
+
+
+
+// app.get('/user', (req, res) =>{
+//     res.send(user);
+// });
+
+// app.get('/user/:id',(req,res) => {
+//     res.send("user id " + req.params.id);
+//     //console.log(user[id]);
+// })
+
+// app.post('/user', (req,res) => {
+//     console.log(req.body);
+//     user = req.body;
+//     res.json({
+//             message: "data recieved"
+//         });
+// });
+
+// app.patch('/user', (req,res) =>{
+//     console.log( req.body );
+//     for( key in req.body)
+//     {
+//         user[key] = req.body[key];
+//     }
+//     res.json({
+//         message: "data updated"
+//     });
+// });
+
+// app.delete('/user',(req,res) => {
+//     user = {};
+//     res.json({
+//         message: "data has been deleted"
+//     });
+// });
+
+
+
+
+function getUser (req, res)  {
+    res.sendFile('./views/index.html', { root: __dirname });
     res.send(user);
-})
+}
 
-app.post('/user', (req,res) => {
+function getUserById (req,res) {
+    res.send("user id " + req.params.id);
+    //console.log(user[id]);
+}
+
+function postUser (req,res) {
     console.log(req.body);
     user = req.body;
     res.json({
             message: "data recieved"
-        });
-});
+    });
+}
 
-app.patch('/user', (req,res) =>{
+function patchUser(req,res){
     console.log( req.body );
     for( key in req.body)
     {
@@ -144,17 +188,11 @@ app.patch('/user', (req,res) =>{
     res.json({
         message: "data updated"
     });
-});
+}
 
-app.delete('/user',(req,res) => {
+function deleteUser(req,res) {
     user = {};
     res.json({
         message: "data has been deleted"
     });
-});
-
-// 404 page 
-
-app.use((req, res) => {
-    res.status(404).sendFile('./views/404.html', { root: __dirname });
-})
+}

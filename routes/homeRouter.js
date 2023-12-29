@@ -1,4 +1,5 @@
 const express = require('express');
+const { execute } = require('../DB/dbConnect.js');
 const path = require('path');
 
 
@@ -11,7 +12,7 @@ const viewDirectory = path.join(routeDirectory, '..', 'views');
 //console.log('Absolute Path to View Directory:', viewDirectory);
 
 // Construct the absolute path to the desired file in the 'view' directory
-const filePathInView = path.join(viewDirectory, 'index.html');
+const filePathInView = path.join(viewDirectory, 'page1.html');
 //console.log('Absolute Path to File in View Directory:', filePathInView);
 
 const homeRouter = express.Router();
@@ -19,6 +20,12 @@ homeRouter
     .route('/')
     .get((req,res) => {
         res.sendFile(filePathInView);
+    })
+    .post( ( req, res ) => {
+        console.log(req.body);
+        const text = req.body.searchBar;
+        console.log( text );
+        execute(text,{});
     })
 
 

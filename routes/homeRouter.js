@@ -22,12 +22,12 @@ homeRouter
         res.sendFile(filePathInView);
     })
     .post( async ( req, res ) => {
-        console.log(req.body);
+        //console.log(req.body);
         const text = req.body.searchBar;
-        console.log( text );
-        const ans = await execute(text,{});
-        console.log( ans );
-        res.json( ans );
+        //console.log( text );
+        const results = await execute(text,{});
+        //console.log( results );
+        res.json( results );
     })
 
 

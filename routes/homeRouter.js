@@ -21,11 +21,13 @@ homeRouter
     .get((req,res) => {
         res.sendFile(filePathInView);
     })
-    .post( ( req, res ) => {
+    .post( async ( req, res ) => {
         console.log(req.body);
         const text = req.body.searchBar;
         console.log( text );
-        execute(text,{});
+        const ans = await execute(text,{});
+        console.log( ans );
+        res.json( ans );
     })
 
 

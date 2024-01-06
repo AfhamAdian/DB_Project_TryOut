@@ -80,11 +80,23 @@
                             },
                             body: JSON.stringify(data)
                         }).then(res=>res.json())
-                        .then(data=>console.log(data));
+                        .then(data=>{
+                            //console.log(data);
+                            for(let i=0;i<data.length;i++) {
+                                document.getElementById("searchRes").innerHTML +="Name : " + data[i].FIRST_NAME + " " + data[i].LAST_NAME + "<br>" + "ID : " +data[i].EMPLOYEE_ID + "<br>" +"<br>";
+                            }
+                        });
                 });
             </script>
         </div>
         <hr>
+
+        <div>
+            <ul id="searchRes">
+
+            </ul>
+        </div>
+
     </body>
 
 </html>

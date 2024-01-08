@@ -45,19 +45,15 @@
                 padding: 10px 20px;
                 color: #777;
             }
-            .Wheelbazar{
-                font-size: 100px;
-                letter-spacing: 1px;
-            }
+
         </style>
         <script src="https://kit.fontawesome.com/c4254e24a8.js" crossorigin="anonymous"></script>
 
     </head>
     <body>
 
-        <div class="WheelBazar">
-            <h2>&nbsp;&nbsp;&nbsp;WheelBazaar</h2>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YOUR DREAM CAR JUST A CLICK AWAY!</p>
+        <div class="Heading">
+            <h2 style="color: aqua;">WheelBazaar</h2>
         </div>
         <div class="container">
             <form class="form">
@@ -83,7 +79,7 @@
                         .then(data=>{
                             //console.log(data);
                             for(let i=0;i<data.length;i++) {
-                                document.getElementById("searchRes").innerHTML +="Name : " + data[i].FIRST_NAME + " " + data[i].LAST_NAME + "<br>" + "ID : " +data[i].EMPLOYEE_ID + "<br>" +"<br>";
+                                document.getElementById("searchRes").innerHTML +="Name : " + data[i].NAME +"<br>" + "ID : " +data[i].ID + "<br>" +"<br>";
                             }
                         });
                 });

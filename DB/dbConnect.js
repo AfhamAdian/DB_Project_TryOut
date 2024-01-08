@@ -17,8 +17,8 @@ const init = async ()=> {
     oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
     try {
         await oracledb.createPool({
-            user          : "hr",
-            password      : "hr",  // mypw contains the hr schema password
+            user          : "WheelBazaar",
+            password      : "abdadi",  // mypw contains the hr schema password
             connectString : "localhost/orcl",
             poolIncrement : 1,
             poolMax       : 15,

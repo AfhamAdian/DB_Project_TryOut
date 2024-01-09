@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <title>
-            Test
+            Home
         </title>
         <meta charset="UTF-8">
         <style>
@@ -11,7 +11,7 @@
             }
             body{
                 background-color: #333;
-                color: whitesmoke;
+                color: white;
             } 
             .container{
                 width: 100%;
@@ -45,6 +45,11 @@
                 padding: 10px 20px;
                 color: #777;
             }
+            .addSection{
+                display: flex;
+                align-items: right;
+                justify-content: center;
+            }
 
         </style>
         <script src="https://kit.fontawesome.com/c4254e24a8.js" crossorigin="anonymous"></script>
@@ -53,7 +58,8 @@
     <body>
 
         <div class="Heading">
-            <h2 style="color: aqua;">WheelBazaar</h2>
+            <br>
+            <img src="images/logo-color-m.png" alt="" style="width: 200px;">
         </div>
         <div class="container">
             <form class="form">
@@ -78,6 +84,9 @@
                         }).then(res=>res.json())
                         .then(data=>{
                             //console.log(data);
+                            document.getElementById("searchRes").innerHTML=" ";
+                            if(data.length == 0) 
+                            document.getElementById("searchRes").innerHTML='<h2 style="color: tomato">NOT FOUND</h2>';
                             for(let i=0;i<data.length;i++) {
                                 document.getElementById("searchRes").innerHTML +="Name : " + data[i].NAME +"<br>" + "ID : " +data[i].ID + "<br>" +"<br>";
                             }
@@ -89,8 +98,53 @@
 
         <div>
             <ul id="searchRes">
-
+                
             </ul>
+        </div>
+        <hr>
+        <div class="addContainer">
+            <br>
+            <article id="addSection">
+                <form class="addForm">
+                    <fieldset>
+                        <legend>Insert test</legend>
+                        <p>
+                            <label for="id">ID : </label>
+                            <input type="number" name="id" id="id" style="width: 300px;height: 22px;">
+                        </p>
+                        <p>
+                            <label for="name">Name : </label>
+                            <input type="text" name="name" id="name" style="width: 300px;height: 22px;">
+                        </p>
+                        <p>
+                            <label for="password">Password : </label>
+                            <input type="password" name="password" id="password" style="width: 300px;height: 22px;">
+                        </p>
+                        <p>
+                            <button type="submit" id="add" style="background-color: green;">Add</button>
+                        </p>
+                    </fieldset>
+                </form>
+            </article>
+            <script>
+                const addFormEl = document.querySelector('.addForm');
+                addFormEl.addEventListener('submit',event=>{
+                       // event.preventDefault();
+
+                        const addFormData = new FormData(addFormEl);
+                        const data = Object.fromEntries(addFormData);
+                        fetch('/insertTest',{
+                            method:'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(data)
+                        }).then(res=>res.json())
+                        .then(data=>{
+                            console.log(data);
+                        });
+                });
+            </script>
         </div>
 
     </body>

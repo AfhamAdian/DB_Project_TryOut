@@ -18,6 +18,7 @@ oracledb.init();
 const homeRouter = require('./routes/homeRouter.js');
 app.use('/',homeRouter);
 
+
 const departmentRouter = require('./routes/deptRouter.js');
 app.use('/dept',departmentRouter);
 

@@ -25,9 +25,28 @@ homeRouter
         //console.log(req.body);
         const text = req.body.searchBar;
         //console.log( text );
-        const results = await execute(text,{});
+        const query_text="SELECT * FROM USERS WHERE LOWER(NAME) LIKE LOWER('%" + text + "%')";
+        const results = await execute(query_text,{});
         //console.log( results );
-        res.json( results );
+        if(results.length > 0)
+            res.json(results);
+        else 
+            res.json([]);
+    })
+    homeRouter
+    .route('/insertTest')
+    .post(async(req,res) => {
+        const id=req.body.id;
+        const name=req.body.name;
+        const pass=req.body.password;
+        console.log(id);
+        console.log(name);
+        console.log(pass);
+        const query_text='INSERT INTO USERS(ID,NAME,PASSWORD) VALUES(:id,:name,:pass)';
+        const binds = {
+           id,name,pass
+        }
+        await execute(query_text,binds);
     })
 
 

@@ -2,6 +2,7 @@ const express = require('express');
 const oracledb = require('oracledb');
 
 oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
+oracledb.autoCommit=true;
 //oracledb.autoCommit = true 
 
 //Connecting databse 

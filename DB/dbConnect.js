@@ -11,14 +11,14 @@ const init = async ()=> {
     
     //oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
 
-    //oracledb.autoCommit = true             // CRUD operations will automatically change database permenantly
-    //                                       // if flase, i have to use connection.commit() after every CRUD
-   
+    //oracledb.autoCommit = true                        // CRUD operations will automatically change database permenantly
+                //                                      // if flase, i have to use connection.commit() after every CRUD
+            
     oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
     try {
         await oracledb.createPool({
             user          : "WheelBazaar",
-            password      : "abdadi",  // mypw contains the hr schema password
+            password      : "abdadi",                   // mypw contains the hr schema password
             connectString : "localhost/orcl",
             poolIncrement : 1,
             poolMax       : 15,

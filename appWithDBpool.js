@@ -18,12 +18,14 @@ oracledb.init();
 const homeRouter = require('./routes/homeRouter.js');
 app.use('/',homeRouter);
 
-
 const departmentRouter = require('./routes/deptRouter.js');
 app.use('/dept',departmentRouter);
 
 const employeeRouter = require('./routes/empRouter.js');
 app.use('/emp',employeeRouter);
+
+const mainHomeRouter = require('./')
+app.use('/mainHome', mainHomeRouter );
 
 
 

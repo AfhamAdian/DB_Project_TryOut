@@ -36,13 +36,18 @@ homeRouter
     homeRouter
     .route('/insertTest')
     .post(async(req,res) => {
-        const id=req.body.id;
-        const name=req.body.name;
-        const pass=req.body.password;
+
+        const {
+            id,
+            name,
+            pass
+        } = req.body;
+
         console.log(id);
         console.log(name);
         console.log(pass);
-        const query_text='INSERT INTO USERS(ID,NAME,PASSWORD) VALUES(:id,:name,:pass)';
+
+        const query_text = 'INSERT INTO USERS(ID,NAME,PASSWORD) VALUES(:id,:name,:pass)';
         const binds = {
            id,name,pass
         }

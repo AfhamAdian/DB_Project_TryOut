@@ -19,7 +19,7 @@ const homeRouter = express.Router();
 homeRouter
     .route('/')
     .get((req,res) => {
-        res.sendFile(filePathInView);
+        res.render('index',{});
     })
     .post( async ( req, res ) => {
         //console.log(req.body);

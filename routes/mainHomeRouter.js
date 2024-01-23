@@ -1,6 +1,8 @@
 const express = require('express');
 const { execute } = require('../DB/dbConnect.js');
 const path = require('path');
+const { result } = require('lodash');
+const { searchByCompany, test } = require('../controller/mainHome.js');
 
 
 
@@ -27,6 +29,21 @@ mainHomeRouter
     })
     .post( async (req, res) => {
         res.write("Post is sent");
+    })
+    
+mainHomeRouter
+    .route('/:companyName')
+    .post( async ( req, res ) => {
+        console.log("asche");
+        const {
+            companyName
+        } = req.params;
+
+        console.log(companyName);
+        test();
+        const result = await searchByCompany( companyName );
+        console.log( result );
+        res.send("ok");
     })
 
     module.exports = mainHomeRouter; 

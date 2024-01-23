@@ -44,14 +44,15 @@ const close = async () => {
 
 // SQL execution function
 const execute = async ( sql, binds) => {
-    console.log( "Sql statemnt passed with " + sql + " binds " + binds + "\n");
-
+    //console.log( `Sql statemnt passed with ` + sql + ` binds ` + binds + `\n`);
+    console.log( sql );
+    
     let connection;
     try{
         connection = await oracledb.getConnection();
         resultQuery = await connection.execute( sql, binds );
 
-        //console.log(resultQuery.rows);
+        console.log(resultQuery.rows);
         console.log("SQL query Result returned Successfully" + '\n');
 
         return resultQuery.rows;                                // returns data trom DATABASE table

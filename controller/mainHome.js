@@ -6,40 +6,76 @@ const path = require('path');
 async function searchByCompany( companyName ) 
 {
     try{
-
+        
+        console.log( 'company name in api  ' + companyName );
         const sql = `
             SELECT 
-            MODEL_COLOR_ID,
-            MODEL_NAME,
-            SEAT_CAP,
-            ENGINE_CAP,
-            COLOR,
-            PRICE,
-            LAUNCH_DATE,
-            STOCK,
-            WARRANTY,
-            CAR_IMAGE_URL,
-            TYPE_ID,
-            VOUCHER_NO
-            FROM company 
-                    JOIN users ON ( users.ID = company.ID )
-                    JOIN cars ON ( company.ID = cars.COMPANY_ID );
-            WHERE NAME = '${companyName}'
+            C.MODEL_COLOR_ID,
+            C.MODEL_NAME,
+            C.SEAT_CAP,
+            C.ENGINE_CAP,
+            C.COLOR,
+            C.PRICE,
+            C.LAUNCH_DATE,
+            C.STOCK,
+            C.WARRANTY,
+            C.CAR_IMAGE_URL,
+            C.TYPE_ID,
+            C.VOUCHER_NO
+            FROM CARS C 
+            JOIN COMPANY CP ON ( C.COMPANY_ID = CP.ID )
+            JOIN USERS U ON ( U.ID = CP.ID )
+            WHERE LOWER(TRIM(U.NAME)) = LOWER( :companyName )
         `;
 
-        const binds = {
-
-        }
-
-        const result = await execute( sql, binds );
+        const binds = { companyName }
+        const result = await execute( sql , binds );
         return result;
 
     }catch(err){
         console.log(err);
     }
+}
 
+async function searchByCategory( companyName ) 
+{
+    try{
+        
+        console.log( 'company name in api  ' + companyName );
+        const sql = `
+            SELECT 
+            C.MODEL_COLOR_ID,
+            C.MODEL_NAME,
+            C.SEAT_CAP,
+            C.ENGINE_CAP,
+            C.COLOR,
+            C.PRICE,
+            C.LAUNCH_DATE,
+            C.STOCK,
+            C.WARRANTY,
+            C.CAR_IMAGE_URL,
+            C.TYPE_ID,
+            C.VOUCHER_NO
+            FROM CARS C 
+            JOIN COMPANY CP ON ( C.COMPANY_ID = CP.ID )
+            JOIN USERS U ON ( U.ID = CP.ID )
+            WHERE LOWER(TRIM(U.NAME)) = LOWER( :companyName )
+        `;
+
+        const binds = { companyName }
+        const result = await execute( sql , binds );
+        return result;
+
+    }catch(err){
+        console.log(err);
+    }
 }
 
 
+function test ()
+{
+    console.log("test ashe");
+}
 
-module.exports = searchByCompany;
+
+module.exports = { searchByCompany, test };

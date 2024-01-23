@@ -3,6 +3,8 @@ uuid
 lodash
 express
 oracledb
+ejs
+bootstrap
 
 .vscode
 

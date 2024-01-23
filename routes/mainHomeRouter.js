@@ -2,7 +2,8 @@ const express = require('express');
 const { execute } = require('../DB/dbConnect.js');
 const path = require('path');
 const { result } = require('lodash');
-const { searchByCompany, test } = require('../controller/mainHome.js');
+const { searchByCompany, searchByType, test } = require('../controller/mainHome.js');
+const { type } = require('os');
 
 
 
@@ -32,7 +33,7 @@ mainHomeRouter
     })
     
 mainHomeRouter
-    .route('/:companyName')
+    .route('/showBrandWise/:companyName')
     .post( async ( req, res ) => {
         console.log("asche");
         const {
@@ -41,9 +42,24 @@ mainHomeRouter
 
         console.log(companyName);
         test();
-        const result = await searchByCompany( companyName );
+        const result = await searchByCompany( companyName );//
         console.log( result );
         res.send("ok");
     })
 
-    module.exports = mainHomeRouter; 
+mainHomeRouter
+    .route('/showTypeWise/:typeName')
+    .post( async ( req, res ) => {
+        //console.log("asche");
+        const {
+            typeName
+        } = req.params;
+
+        console.log(typeName);
+        test();
+        const result = await searchByType( typeName );
+        console.log( result );
+        res.send("ok");
+    })
+
+    module.exports = mainHomeRouter;//

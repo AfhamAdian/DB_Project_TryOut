@@ -16,8 +16,11 @@ oracledb.init();
 
 
 // Router and Page
+const mainHomeRouter = require('./routes/mainHomeRouter.js');
+app.use('/', mainHomeRouter );
+
 const homeRouter = require('./routes/homeRouter.js');
-app.use('/',homeRouter);
+app.use('/test',homeRouter);
 
 const departmentRouter = require('./routes/deptRouter.js');
 app.use('/dept',departmentRouter);
@@ -25,8 +28,6 @@ app.use('/dept',departmentRouter);
 const employeeRouter = require('./routes/empRouter.js');
 app.use('/emp',employeeRouter);
 
-const mainHomeRouter = require('./')
-app.use('/mainHome', mainHomeRouter );
 
 
 

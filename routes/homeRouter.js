@@ -15,17 +15,19 @@ const viewDirectory = path.join(routeDirectory, '..', 'views');
 const filePathInView = path.join(viewDirectory, 'page1.html');
 //console.log('Absolute Path to File in View Directory:', filePathInView);
 
+
 const homeRouter = express.Router();
 homeRouter
     .route('/')
     .get((req,res) => {
-        res.render('index',{});
+        res.sendFile(filePathInView);
+        //res.render('index',{});
     })
     .post( async ( req, res ) => {
         //console.log(req.body);
         const text = req.body.searchBar;
         //console.log( text );
-        const query_text="SELECT * FROM USERS WHERE LOWER(NAME) LIKE LOWER('%" + text + "%')";
+        const query_text= "SELECT * FROM USERS WHERE LOWER(NAME) LIKE LOWER('%" + text + "%')";
         const results = await execute(query_text,{});
         //console.log( results );
         if(results.length > 0)
@@ -33,7 +35,9 @@ homeRouter
         else 
             res.json([]);
     })
-    homeRouter
+
+
+homeRouter
     .route('/insertTest')
     .post(async(req,res) => {
 

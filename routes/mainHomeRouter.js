@@ -23,5 +23,10 @@ mainHomeRouter
     .route('/')
     .get( (req,res) => 
     {
-        res
+        res.render('index',{});
     })
+    .post( async (req, res) => {
+        res.write("Post is sent");
+    })
+
+    module.exports = mainHomeRouter; 

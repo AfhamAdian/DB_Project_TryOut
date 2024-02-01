@@ -1,9 +1,11 @@
 const express = require('express');
-const { execute } = require('../DB/dbConnect.js');
+const cookieParser = require('cookie-parser');
 const path = require('path');
-const { result } = require('lodash');
 const { authUser,sendUserData,sendUserDataByUserName } = require('../controller/logIn.js');
 const { updatePassword } = require('../controller/updatePassWord.js');
+
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 // Assuming __dirname is the 'route' directory
 const routeDirectory = __dirname;
@@ -34,24 +36,34 @@ loginRouter
         // here we will take login data from user and check if it is valid or not
         // if valid then redirect to home page
         // else show error message
-        const {
-            username,
-            password
-        } = req.body;
+        try{
+            const {
+                username,
+                password
+            } = req.body;
 
-        console.log(username);
-        console.log(password);
-        
-        const bool = await authUser( username, password );
-        const result = await sendUserData( username, password );
+            console.log(username);
+            console.log(password);//
+            
+            const bool = await authUser( username, password );
+            const result = await sendUserData( username, password );
 
-        if( bool == true ){
-            res.json('Login Successful');
+            if( bool == true ){
+
+                  const payLoad = {
+                    username: username,
+                    password: password
+                }
+                console.log( process.env.ACCESS_TOKEN_SECRET );
+                const accessToken = jwt.sign( payLoad, process.env.ACCESS_TOKEN_SECRET );    
+                res.json( { message: 'Login Successful', accessToken: accessToken } );
+            }
+            else{
+                res.json('Invalid Username or Password');
+            }
+        }catch(err){
+            console.log(err);
         }
-        else{
-            res.json('Invalid Username or Password');
-        }
-
     })
 
     // here i will redirect to forgot password page
@@ -60,9 +72,10 @@ loginRouter
 
 loginRouter
     .route('/forgotPassword')
-    
+    // here we will send cookies in get request
     .get( async(req,res) =>
     {
+        // res.cookie('username', 'abc', { maxAge: 900000, httpOnly: false });
         res.render('updatePass',{});
     })
     
@@ -85,6 +98,7 @@ loginRouter
             const bool = await updatePassword( username, newPassword );
             if( bool == true ){
                 res.json('Password Updated Successfully');
+                res.cookie('isLoggedIn',true, { maxAge: 900000, httpOnly: false , secure: false });
             }
             else{
                 res.json('Error! Try Again');

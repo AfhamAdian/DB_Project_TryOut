@@ -1,58 +1,76 @@
-const http = require('http');
-const path = require('path');
-const fs = require('fs');
-const fsPromises = fs.promises;
+// const http = require('http');
+// const path = require('path');
+// const fs = require('fs');
+// const fsPromises = fs.promises;
 
-const _ = require('lodash');
+// const _ = require('lodash');
 
-const logEvent = require("./logEvent");
-const EventEmitter = require('events');
-
-
-class MyEmitter extends EventEmitter{};
-
-const myEmitter = new MyEmitter();
+// const logEvent = require("./logEvent");
+// const EventEmitter = require('events');
 
 
-//// registering every server restart event
-/// oh man it took 4 hours
+// class MyEmitter extends EventEmitter{};
 
-myEmitter.on( 'log', (msg) => logEvent(msg));
-myEmitter.emit('log','log in event emiited!');
+// const myEmitter = new MyEmitter();
 
 
+// //// registering every server restart event
+// /// oh man it took 4 hours
 
-// Building Server
+// myEmitter.on( 'log', (msg) => logEvent(msg));
+// myEmitter.emit('log','log in event emiited!');
 
-const PORT = process.env.PORT || 3000;
 
-const server = http.createServer( (req,res) => {
-    console.log('Request has been made to the server');
-    console.log(req.url+'\n'+req.method);
 
-    res.setHeader('Content-Type','text/html');
+// // Building Server
 
-    let path = './views';
-    switch( req.url.toLocaleLowerCase())
-    {
-        case '/':
-            path += '/index.html';
-            break;
-        case '/about' :
-            path += '/about.html';
-            break;
-        default :
-            path += '/404.html';
-            break;
-    }
+// const PORT = process.env.PORT || 3000;
 
-    fs.readFile( path, (err,dt)=>{                                          /// this has to be made async
-        res.end(dt);
-    })
+// const server = http.createServer( (req,res) => {
+//     console.log('Request has been made to the server');
+//     console.log(req.url+'\n'+req.method);
+
+//     res.setHeader('Content-Type','text/html');
+
+//     let path = './views';
+//     switch( req.url.toLocaleLowerCase())
+//     {
+//         case '/':
+//             path += '/index.html';
+//             break;
+//         case '/about' :
+//             path += '/about.html';
+//             break;
+//         default :
+//             path += '/404.html';
+//             break;
+//     }
+
+//     fs.readFile( path, (err,dt)=>{                                          /// this has to be made async
+//         res.end(dt);
+//     })
+// });
+
+
+
+// server.listen( PORT, () => {
+//     console.log('server is listening to port 3000');
+// });
+
+
+
+const express = require('express');
+const morgan = require('morgan');
+
+const app = express();
+
+// Use morgan middleware with 'dev' format
+app.use(morgan('dev'));
+
+app.get('/', (req, res) => {
+  res.send('Hello World!');
 });
 
-
-
-server.listen( PORT, () => {
-    console.log('server is listening to port 3000');
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
 });

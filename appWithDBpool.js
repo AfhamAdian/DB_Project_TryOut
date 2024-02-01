@@ -1,12 +1,16 @@
 const express = require('express');
+const cookieParser = require('cookie-parser'); 
+const morgan = require('morgan');
+const dotenv = require('dotenv');
 const oracledb = require('./DB/dbConnect.js');
 
 const app = express();
-app.use(express.json());
 app.set("view engine","ejs");
 
+app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({extended : true}));
-
+app.use(morgan('dev'));
 
 // creating Server
 const PORT = 3000;
@@ -41,7 +45,4 @@ app.use((req, res) => {
     
 
 
-//i will now make a endpoint for login 
-// with Email and Password
-// now write the codes
-
+// now we will 

@@ -6,6 +6,8 @@ oracledb
 ejs
 bootstrap
 cookie-parser
+jsonwebtoken
+dotenv
 
 .vscode
 

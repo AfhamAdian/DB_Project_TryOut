@@ -83,7 +83,7 @@
             .then(response => response.json())
             .then(data => {
                 if (data.message == 'Successful') {
-                    window.location.href = '/dashboard';
+                    window.location.href = '/login/dashboard';
                 } else {
                     alert(data.message);
                 }

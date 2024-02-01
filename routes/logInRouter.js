@@ -1,11 +1,12 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const path = require('path');
-const { authUser,sendUserData,sendUserDataByUserName } = require('../controller/logIn.js');
-const { updatePassword } = require('../controller/updatePassWord.js');
-
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
+
+const { authUser,sendUserData,sendUserDataByUserName } = require('../controller/logIn.js');
+const { updatePassword } = require('../controller/updatePassWord.js');
+const authorization = require('../middlewares/authorization.js');
 
 // Assuming __dirname is the 'route' directory
 const routeDirectory = __dirname;
@@ -55,15 +56,9 @@ loginRouter
                     password: password
                 }
                 
-            res.json( { message: 'Successful' });
-                //const accessToken = jwt.sign( payLoad, process.env.ACCESS_TOKEN_SECRET );    
-                //res.json({ message: 'Login Successful', accessToken: accessToken }); 
-                
-                // const user = {
-                //     username: username,
-                // }
-                
-                // res.render('dashboard',  );
+                const accessToken = jwt.sign( payLoad, process.env.ACCESS_TOKEN_SECRET );    
+                res.cookie('token', accessToken, { httpOnly: true , secure: false });
+                res.json ( { message: 'Successful' } );    
             }
             else{
                 res.json('Invalid Username or Password');
@@ -114,5 +109,13 @@ loginRouter
 
     })
 
+
+loginRouter
+    .route('/dashboard')
+    .get( authorization, async(req,res) =>
+    {
+        const user = req.user;
+        res.render('dashboard', { user : user } );
+    })
 
 module.exports = loginRouter;

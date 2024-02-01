@@ -3,7 +3,7 @@ const { execute } = require('../DB/dbConnect.js');
 const path = require('path');
 
 
-async function searchByCompany( companyName ) 
+async function updateUser () 
 {
     try{
         
@@ -65,16 +65,13 @@ async function searchByType ( typeName )
 async function searchByName(carName)
 {
     try{
-        const editedCarName = `'%`+ carName + `%'`;
-        console.log( editedCarName );
-
         const sql = `
         SELECT *
         FROM CARS
-        WHERE LOWER(REPLACE(MODEL_NAME, ' ', '' )) LIKE LOWER(REPLACE( ${editedCarName} , ' ', '' ))
+        WHERE LOWER(REPLACE(MODEL_NAME, ' ', '' )) = LOWER(REPLACE( 'Corolla Cross', ' ', '' ))
         `;
-        
-        const binds = { }
+
+        const binds = { carName }
         const result = await execute( sql , binds );
         return result;
 

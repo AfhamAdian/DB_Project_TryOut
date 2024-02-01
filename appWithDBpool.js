@@ -5,6 +5,8 @@ const app = express();
 app.use(express.json());
 app.set("view engine","ejs");
 
+app.use(express.urlencoded({extended : true}));
+
 
 // creating Server
 const PORT = 3000;
@@ -28,6 +30,7 @@ app.use('/dept',departmentRouter);
 const employeeRouter = require('./routes/empRouter.js');
 app.use('/emp',employeeRouter);
 
+app.use('/login', require('./routes/loginRouter.js'));
 
 
 
@@ -36,3 +39,9 @@ app.use((req, res) => {
     res.status(404).sendFile('./views/404.html', { root: __dirname });
 });
     
+
+
+//i will now make a endpoint for login 
+// with Email and Password
+// now write the codes
+

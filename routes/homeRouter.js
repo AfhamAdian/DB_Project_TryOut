@@ -38,25 +38,39 @@ homeRouter
 
 
 homeRouter
-    .route('/insertTest')
+    .route('/deleteTest')
     .post(async(req,res) => {
 
         const {
-            id,
-            name,
-            pass
+            id
         } = req.body;
 
         console.log(id);
-        console.log(name);
-        console.log(pass);
 
-        const query_text = 'INSERT INTO USERS(ID,NAME,PASSWORD) VALUES(:id,:name,:pass)';
+        const query_text = 'DELETE FROM USERS WHERE ID = :id';
         const binds = {
-           id,name,pass
+           id
+        }
+        await execute(query_text,binds);
+    })
+homeRouter
+    .route('/updateTest')
+    .post(async(req,res) => {
+        
+        console.log('post dhukse');
+        const id = req.body.id;
+        const password = req.body.password;
+
+        console.log(id);
+
+        const query_text = 'UPDATE USERS SET PASSWORD = :password WHERE ID = :id';
+        const binds = {
+           password,id
         }
         await execute(query_text,binds);
     })
 
-
 module.exports = homeRouter; 
+
+
+

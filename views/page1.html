@@ -50,13 +50,13 @@
                 align-items: right;
                 justify-content: center;
             }
-
+​
         </style>
         <script src="https://kit.fontawesome.com/c4254e24a8.js" crossorigin="anonymous"></script>
-
+​
     </head>
     <body>
-
+​
         <div class="Heading">
             <br>
             <img src="images/logo-color-m.png" alt="" style="width: 200px;">
@@ -69,10 +69,10 @@
             </form>
             <script>
                 const formEl = document.querySelector('.form');
-
+​
                 formEl.addEventListener('submit',event=>{
                         event.preventDefault();
-
+​
                         const formData = new FormData(formEl);
                         const data = Object.fromEntries(formData);
                         fetch('/',{
@@ -95,7 +95,7 @@
             </script>
         </div>
         <hr>
-
+​
         <div>
             <ul id="searchRes">
                 
@@ -107,21 +107,20 @@
             <article id="addSection">
                 <form class="addForm">
                     <fieldset>
-                        <legend>Insert test</legend>
+                        <legend>Test</legend>
                         <p>
                             <label for="id">ID : </label>
                             <input type="number" name="id" id="id" style="width: 300px;height: 22px;">
                         </p>
                         <p>
-                            <label for="name">Name : </label>
-                            <input type="text" name="name" id="name" style="width: 300px;height: 22px;">
+                            <label for="name">New Password : </label>
+                            <input type="password" name="password" id="name" style="width: 300px;height: 22px;">
                         </p>
                         <p>
-                            <label for="password">Password : </label>
-                            <input type="password" name="password" id="password" style="width: 300px;height: 22px;">
+                            <button type="submit" id="add" style="background-color: green;">Update</button>
                         </p>
                         <p>
-                            <button type="submit" id="add" style="background-color: green;">Add</button>
+                            <button type="button" id="add" style="background-color: green;">Delete</button>
                         </p>
                     </fieldset>
                 </form>
@@ -130,10 +129,26 @@
                 const addFormEl = document.querySelector('.addForm');
                 addFormEl.addEventListener('submit',event=>{
                        // event.preventDefault();
-
+​
                         const addFormData = new FormData(addFormEl);
                         const data = Object.fromEntries(addFormData);
-                        fetch('/insertTest',{
+                        fetch('/updateTest',{
+                            method:'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(data)
+                        }).then(res=>res.json())
+                        .then(data=>{
+                            console.log(data);
+                        });
+                });
+                addFormEl.addEventListener('button',event=>{
+                       // event.preventDefault();
+​
+                        const addFormData = new FormData(addFormEl);
+                        const data = Object.fromEntries(addFormData);
+                        fetch('/deleteTest',{
                             method:'POST',
                             headers: {
                                 'Content-Type': 'application/json'
@@ -146,7 +161,7 @@
                 });
             </script>
         </div>
-
+​
     </body>
-
+​
 </html>

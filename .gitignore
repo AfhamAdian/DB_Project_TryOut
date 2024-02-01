@@ -5,6 +5,7 @@ express
 oracledb
 ejs
 bootstrap
+cookie-parser
 
 .vscode
 

@@ -54,9 +54,16 @@ loginRouter
                     username: username,
                     password: password
                 }
-                console.log( process.env.ACCESS_TOKEN_SECRET );
-                const accessToken = jwt.sign( payLoad, process.env.ACCESS_TOKEN_SECRET );    
-                res.json( { message: 'Login Successful', accessToken: accessToken } );
+                
+            res.json( { message: 'Successful' });
+                //const accessToken = jwt.sign( payLoad, process.env.ACCESS_TOKEN_SECRET );    
+                //res.json({ message: 'Login Successful', accessToken: accessToken }); 
+                
+                // const user = {
+                //     username: username,
+                // }
+                
+                // res.render('dashboard',  );
             }
             else{
                 res.json('Invalid Username or Password');
